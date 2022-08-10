@@ -26,6 +26,9 @@ const schema = new mongoose.Schema({
     t_lichtrinhtour: {
         type: Array,
     },
+    t_trangthai: {
+        type: Number,
+    },
 });
 
 export const TourModel = mongoose.model('Tour', schema);

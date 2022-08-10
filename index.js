@@ -11,6 +11,10 @@ import TouristRouter from './routers/TouristRouter.js';
 import VehicleRouter from './routers/VehicleRouter.js';
 import TourRouter from './routers/TourRouter.js';
 import DepartureRouter from './routers/DepartureRouter.js';
+import ScheduleTourRouter from './routers/ScheduleTourRouter.js';
+import VoucherRouter from './routers/VoucherRouter.js';
+import BookingTourRouter from './routers/BookingTourRouter.js';
+import CalendarGuideRouter from './routers/CalendarGuideRouter.js';
 
 const app = express();
 const PORT = process.env.port || 5000;
@@ -31,6 +35,10 @@ app.use('/Tourist', TouristRouter);
 app.use('/Vehicle', VehicleRouter);
 app.use('/Tour', TourRouter);
 app.use('/Departure', DepartureRouter);
+app.use('/ScheduleTour', ScheduleTourRouter);
+app.use('/Voucher', VoucherRouter);
+app.use('/BookingTour', BookingTourRouter);
+app.use('/CalendarGuide', CalendarGuideRouter);
 
 mongoose
     .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })

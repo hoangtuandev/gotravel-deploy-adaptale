@@ -10,12 +10,9 @@ const schema = new mongoose.Schema({
     ltt_noidung: {
         type: String,
     },
-    ltt_hinhanh: {
-        type: String,
-    },
     ltt_phuongtien: {
         type: Object,
     },
 });
 
-export const ScheduleTour = mongoose.model('LichTrinhTour', schema);
+export const ScheduleTourModel = mongoose.model('LichTrinhTour', schema);

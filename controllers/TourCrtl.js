@@ -10,6 +10,26 @@ export const getAllTour = async (req, res) => {
     }
 };
 
+export const getAllActiveTour = async (req, res) => {
+    try {
+        const result = await TourModel.find({ t_trangthai: 1 });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getStopedTour = async (req, res) => {
+    try {
+        const result = await TourModel.find({ t_trangthai: 0 });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const getTourById = async (req, res) => {
     try {
         const result = await TourModel.findOne({ t_ma: req.body.t_ma });
@@ -64,6 +84,101 @@ export const updateTourWithDeparture = async (req, res) => {
                 },
             }
         );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const updateTourWithScheduleTour = async (req, res) => {
+    try {
+        const tour = req.body;
+        const result = await TourModel.updateOne(
+            { _id: tour._id },
+            { $set: { t_lichtrinhtour: tour.t_lichtrinhtour } }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const deleteDepartureFromTour = async (req, res) => {
+    try {
+        const departure = req.body;
+
+        const newUpdate = await TourModel.findOne({ _id: departure.idTour });
+
+        for (let i = 0; i < newUpdate.t_lichkhoihanh.length; i++) {
+            if (newUpdate.t_lichkhoihanh[i]._id === departure._id) {
+                newUpdate.t_lichkhoihanh.splice(i, 1);
+            }
+        }
+
+        const result = await TourModel.updateOne(
+            { _id: departure.idTour },
+            {
+                $set: {
+                    t_lichkhoihanh: newUpdate.t_lichkhoihanh,
+                },
+            }
+        );
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const deleteScheduleFromTour = async (req, res) => {
+    try {
+        const schedule = req.body;
+
+        const newUpdate = await TourModel.findOne({ _id: schedule.idTour });
+
+        for (let i = 0; i < newUpdate.t_lichtrinhtour.length; i++) {
+            if (newUpdate.t_lichtrinhtour[i]._id === schedule._id) {
+                newUpdate.t_lichtrinhtour.splice(i, 1);
+            }
+        }
+
+        const result = await TourModel.updateOne(
+            { _id: schedule.idTour },
+            {
+                $set: {
+                    t_lichtrinhtour: newUpdate.t_lichtrinhtour,
+                },
+            }
+        );
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const updateStopTour = async (req, res) => {
+    try {
+        const tour = req.body;
+        const result = await TourModel.updateOne(
+            { _id: tour._id },
+            { $set: { t_trangthai: 0 } }
+        );
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const updateActiveTour = async (req, res) => {
+    try {
+        const tour = req.body;
+        const result = await TourModel.updateOne(
+            { _id: tour._id },
+            { $set: { t_trangthai: 1 } }
+        );
+
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });

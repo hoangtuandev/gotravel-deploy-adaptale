@@ -21,6 +21,17 @@ export const createDeparture = async (req, res) => {
     }
 };
 
+export const deleteDeparture = async (req, res) => {
+    try {
+        const departure = req.body;
+        const result = await DepartureModel.deleteOne({ _id: departure._id });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 // export const getAllDepartureByTour = async (req, res) => {
 //     try {
 //     } catch (error) {}
