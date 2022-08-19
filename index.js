@@ -2,6 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import TypeTourismRouter from './routers/TypeTourismRouter.js';
 import AdminRouter from './routers/AdminRouter.js';
@@ -17,9 +20,11 @@ import BookingTourRouter from './routers/BookingTourRouter.js';
 import CalendarGuideRouter from './routers/CalendarGuideRouter.js';
 
 const app = express();
-const PORT = process.env.port || 5000;
-const URI =
-    'mongodb+srv://admin:PHTuan_2807@cluster0.rawux.mongodb.net/GoTravelDB?retryWrites=true&w=majority';
+// const PORT = process.env.port || 5000;
+const PORT = process.env.PORT || 5000;
+// const URI =
+//     'mongodb+srv://admin:PHTuan_2807@cluster0.rawux.mongodb.net/GoTravelDB?retryWrites=true&w=majority';
+const URI = process.env.DATABASE_URL;
 
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
