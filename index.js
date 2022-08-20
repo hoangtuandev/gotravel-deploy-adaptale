@@ -4,8 +4,6 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-dotenv.config();
-
 import TypeTourismRouter from './routers/TypeTourismRouter.js';
 import AdminRouter from './routers/AdminRouter.js';
 import AdminAccountRouter from './routers/AdminAccountRouter.js';
@@ -20,6 +18,7 @@ import BookingTourRouter from './routers/BookingTourRouter.js';
 import CalendarGuideRouter from './routers/CalendarGuideRouter.js';
 
 const app = express();
+dotenv.config();
 // const PORT = process.env.port || 5000;
 const PORT = process.env.PORT || 5000;
 // const URI =
