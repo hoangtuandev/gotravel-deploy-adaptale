@@ -23,9 +23,6 @@ const schema = new mongoose.Schema({
     bt_soluonghanhkhach: {
         type: Object,
     },
-    bt_thongtinthanhtoan: {
-        type: Object,
-    },
     bt_giamgia: {
         type: Object,
     },

@@ -29,6 +29,9 @@ const schema = new mongoose.Schema({
     t_trangthai: {
         type: Number,
     },
+    t_danhgia: {
+        type: Number,
+    },
 });
 
 export const TourModel = mongoose.model('Tour', schema);

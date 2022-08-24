@@ -9,6 +9,15 @@ export const getAllDeparture = async (req, res) => {
     }
 };
 
+export const getDepartureById = async (req, res) => {
+    try {
+        const result = await DepartureModel.findOne({ _id: req.body._id });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const createDeparture = async (req, res) => {
     try {
         const departure = req.body;

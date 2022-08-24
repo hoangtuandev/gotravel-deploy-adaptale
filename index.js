@@ -21,9 +21,9 @@ const app = express();
 dotenv.config();
 // const PORT = process.env.port || 5000;
 const PORT = process.env.PORT || 5000;
-// const URI =
-//     'mongodb+srv://admin:PHTuan_2807@cluster0.rawux.mongodb.net/GoTravelDB?retryWrites=true&w=majority';
-const URI = process.env.DATABASE_URL;
+const URI =
+    'mongodb+srv://admin:PHTuan_2807@cluster0.rawux.mongodb.net/GoTravelDB?retryWrites=true&w=majority';
+// const URI = process.env.DATABASE_URL;
 
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
