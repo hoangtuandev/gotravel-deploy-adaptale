@@ -9,6 +9,9 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    lht_mota: {
+        type: String,
+    },
 });
 
 export const TypeTourismModel = mongoose.model('LoaiHinhTour', schema);

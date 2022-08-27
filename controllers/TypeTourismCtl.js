@@ -43,6 +43,7 @@ export const updateTypeTourism = async (req, res) => {
                 $set: {
                     lht_ma: typeTourism.lht_ma,
                     lht_ten: typeTourism.lht_ten,
+                    lht_mota: typeTourism.lht_mota,
                 },
             }
         );

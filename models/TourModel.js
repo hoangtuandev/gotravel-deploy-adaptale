@@ -17,6 +17,12 @@ const schema = new mongoose.Schema({
     t_gia: {
         type: Number,
     },
+    t_soluongkhach: {
+        type: Number,
+    },
+    t_soluonghuongdanvien: {
+        type: Number,
+    },
     t_hinhanh: {
         type: Array,
     },

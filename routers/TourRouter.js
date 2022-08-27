@@ -6,6 +6,7 @@ import {
     deleteScheduleFromTour,
     getAllActiveTour,
     getAllTour,
+    getPreferTour,
     getStopedTour,
     getTourById,
     updateActiveTour,
@@ -28,6 +29,8 @@ router.post('/', createTour);
 router.post('/update', updateTour);
 
 router.post('/getById', getTourById);
+
+router.get('/getPreferTour', getPreferTour);
 
 router.post('/updateWithDeparture', updateTourWithDeparture);
 

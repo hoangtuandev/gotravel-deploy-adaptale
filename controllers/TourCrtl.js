@@ -40,6 +40,15 @@ export const getTourById = async (req, res) => {
     }
 };
 
+export const getPreferTour = async (req, res) => {
+    try {
+        const result = await TourModel.find({ t_trangthai: 1 }).limit(9);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const createTour = async (req, res) => {
     try {
         const newTour = req.body;
@@ -64,6 +73,8 @@ export const updateTour = async (req, res) => {
                     t_thoigian: tour.t_thoigian,
                     t_gia: tour.t_gia,
                     t_hinhanh: tour.t_hinhanh,
+                    t_soluongkhach: tour.t_soluongkhach,
+                    t_soluonghuongdanvien: tour.t_soluonghuongdanvien,
                 },
             }
         );
