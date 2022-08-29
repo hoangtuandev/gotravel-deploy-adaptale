@@ -9,6 +9,7 @@ import {
     getPreferTour,
     getStopedTour,
     getTourById,
+    getTourByTypeTourism,
     updateActiveTour,
     updateStopTour,
     updateTour,
@@ -29,6 +30,8 @@ router.post('/', createTour);
 router.post('/update', updateTour);
 
 router.post('/getById', getTourById);
+
+router.post('/getTourByTypeTourism', getTourByTypeTourism);
 
 router.get('/getPreferTour', getPreferTour);
 

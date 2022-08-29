@@ -50,7 +50,7 @@ export const signInTourist = async (req, res) => {
                     tkkdl_tendangnhap: user.tkkdl_tendangnhap,
                 },
                 process.env.JWT_ACCESS_TOURIST,
-                { expiresIn: '1d' }
+                { expiresIn: '30m' }
             );
 
             const { tkkdl_matkhau, ...others } = user._doc;

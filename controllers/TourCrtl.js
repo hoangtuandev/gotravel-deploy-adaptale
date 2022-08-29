@@ -40,6 +40,17 @@ export const getTourById = async (req, res) => {
     }
 };
 
+export const getTourByTypeTourism = async (req, res) => {
+    try {
+        const typeTourism = req.body.type_tourism;
+        const result = await TourModel.find({ t_loaihinh: typeTourism });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const getPreferTour = async (req, res) => {
     try {
         const result = await TourModel.find({ t_trangthai: 1 }).limit(9);
