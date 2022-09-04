@@ -1,6 +1,7 @@
 import express from 'express';
 
 import {
+    bookingTour,
     createTour,
     deleteDepartureFromTour,
     deleteScheduleFromTour,
@@ -9,7 +10,9 @@ import {
     getPreferTour,
     getStopedTour,
     getTourById,
+    getTourByParamsFilter,
     getTourByTypeTourism,
+    searchingTour,
     updateActiveTour,
     updateStopTour,
     updateTour,
@@ -34,6 +37,12 @@ router.post('/getById', getTourById);
 router.post('/getTourByTypeTourism', getTourByTypeTourism);
 
 router.get('/getPreferTour', getPreferTour);
+
+router.post('/bookingTour', bookingTour);
+
+router.post('/getTourByParamsFilter', getTourByParamsFilter);
+
+router.post('/searchingTour', searchingTour);
 
 router.post('/updateWithDeparture', updateTourWithDeparture);
 
