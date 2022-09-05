@@ -43,7 +43,7 @@ export const updateStatusBookingTour = async (req, res) => {
             { _id: booking._id },
             {
                 $set: {
-                    bt_trangthai: 2,
+                    bt_trangthai: booking.bt_trangthai,
                 },
             }
         );
