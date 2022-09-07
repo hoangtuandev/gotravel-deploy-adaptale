@@ -92,13 +92,15 @@ export const searchingTour = async (req, res) => {
             return str;
         }
         const tours = await TourModel.find();
-        const convertKey = removeVietnameseTones(key);
+        const convertKey = removeVietnameseTones(key).toLowerCase();
 
-        const result = tours.filter((tour) =>
-            removeVietnameseTones(tour.t_ten)
+        const fillterTourByKey = (tour) => {
+            return removeVietnameseTones(tour.t_ten)
                 .toLowerCase()
-                .includes(convertKey.toLowerCase())
-        );
+                .includes(convertKey.toLowerCase());
+        };
+
+        const result = tours.filter(fillterTourByKey);
 
         res.status(200).json(result);
     } catch (error) {
