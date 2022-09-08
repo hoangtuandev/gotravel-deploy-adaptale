@@ -16,6 +16,7 @@ import ScheduleTourRouter from './routers/ScheduleTourRouter.js';
 import VoucherRouter from './routers/VoucherRouter.js';
 import BookingTourRouter from './routers/BookingTourRouter.js';
 import CalendarGuideRouter from './routers/CalendarGuideRouter.js';
+import RatingTourRouter from './routers/RatingTourRouter.js';
 
 const app = express();
 dotenv.config();
@@ -43,6 +44,7 @@ app.use('/ScheduleTour', ScheduleTourRouter);
 app.use('/Voucher', VoucherRouter);
 app.use('/BookingTour', BookingTourRouter);
 app.use('/CalendarGuide', CalendarGuideRouter);
+app.use('/RatingTour', RatingTourRouter);
 
 mongoose
     .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })

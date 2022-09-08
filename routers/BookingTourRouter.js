@@ -4,6 +4,7 @@ import {
     bookingTour,
     getAllBookingTour,
     getBookingTourByStatus,
+    getBookingTourByTouristAccount,
     updateBookingTourFinish,
     updateBookingTourWorking,
     updateStatusBookingTour,
@@ -18,6 +19,8 @@ router.post('/updateBookingTourWorking', updateBookingTourWorking);
 router.post('/updateBookingTourFinish', updateBookingTourFinish);
 
 router.post('/getBookingTourByStatus', getBookingTourByStatus);
+
+router.post('/getBookingTourByTouristAccount', getBookingTourByTouristAccount);
 
 router.post('/bookingTour', bookingTour);
 

@@ -11,11 +11,27 @@ export const getAllBookingTour = async (req, res) => {
 };
 
 export const getBookingTourByStatus = async (req, res) => {
-    const status = req.body.bt_trangthai;
     try {
+        const status = req.body.bt_trangthai;
         const result = await BookingTourModel.find({
             bt_trangthai: status,
         }).sort({ bt_ngaydat: -1 });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getBookingTourByTouristAccount = async (req, res) => {
+    try {
+        const idAccount = req.body._id;
+        const bookings = await BookingTourModel.find().sort({ bt_ngaydat: -1 });
+
+        const filterBooking = (booking) =>
+            booking.bt_taikhoan._id === idAccount;
+
+        const result = bookings.filter(filterBooking);
 
         res.status(200).json(result);
     } catch (error) {
