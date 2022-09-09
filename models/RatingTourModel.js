@@ -16,6 +16,9 @@ const schema = new mongoose.Schema({
     dgt_saodanhgia: {
         type: Number,
     },
+    dgt_nhanxet: {
+        type: String,
+    },
 });
 
 export const RatingTourModel = mongoose.model('DanhGiaTour', schema);
