@@ -91,7 +91,7 @@ export const searchingTour = async (req, res) => {
             );
             return str;
         }
-        const tours = await TourModel.find();
+        const tours = await TourModel.find({ t_trangthai: 1 });
         const convertKey = removeVietnameseTones(key).toLowerCase();
 
         const fillterTourByKey = (tour) => {
@@ -118,6 +118,73 @@ export const getTourByParamsFilter = async (req, res) => {
         });
 
         res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterTourByParams = async (req, res) => {
+    try {
+        const params = req.body.params;
+        const type = req.body.typeTourism;
+        const departureFilter = new Date(req.body.params.departure);
+
+        const filterByDeparture = (tour) => {
+            for (let i = 0; i < tour.t_lichkhoihanh.length; i++) {
+                const date = new Date(tour.t_lichkhoihanh[i].lkh_ngaykhoihanh);
+                if (
+                    date.toLocaleDateString() ===
+                    departureFilter.toLocaleDateString()
+                ) {
+                    return tour;
+                }
+            }
+        };
+
+        const filterByTime = (tour) => {
+            return tour.t_thoigian === params.time;
+        };
+
+        const filterByTypeTourism = (tour) => {
+            return (tour.t_loaihinh._id = type._id);
+        };
+
+        var tours = await TourModel.find({
+            t_gia: { $gte: params.price[0], $lte: params.price[1] },
+            t_trangthai: 1,
+        }).sort({ t_gia: 1 });
+
+        if (type.lht_ma !== 'all') {
+            const newTours = [...tours];
+            const filterTours = newTours.filter(filterByTypeTourism);
+            tours = [...filterTours];
+        }
+
+        if (!params.allDeparture) {
+            const newTours = [...tours];
+            const filterTours = newTours.filter(filterByDeparture);
+            tours = [...filterTours];
+        }
+
+        if (!params.allTime) {
+            const newTours = [...tours];
+            const filterTours = newTours.filter(filterByTime);
+            tours = [...filterTours];
+        }
+
+        // if (!params.allDeparture) {
+        //     const newBooking = [...bookings];
+        //     const filterBookings = newBooking.filter(filterByDeparture);
+        //     bookings = [...filterBookings];
+        // }
+
+        // if (!params.allTime) {
+        //     const newBooking = [...bookings];
+        //     const filterBookings = newBooking.filter(filterByBookingDate);
+        //     bookings = [...filterBookings];
+        // }
+
+        res.status(200).json(tours);
     } catch (error) {
         res.status(500).json({ error: error });
     }
