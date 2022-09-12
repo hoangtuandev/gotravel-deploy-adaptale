@@ -5,6 +5,9 @@ import {
     createTour,
     deleteDepartureFromTour,
     deleteScheduleFromTour,
+    filterTourByDeparture,
+    filterTourByPrice,
+    filterTourByTime,
     getAllActiveTour,
     getAllTour,
     getPreferTour,
@@ -55,5 +58,11 @@ router.post('/deleteScheduleFromTour', deleteScheduleFromTour);
 router.post('/updateStopTour', updateStopTour);
 
 router.post('/updateActiveTour', updateActiveTour);
+
+router.post('/filterTourByPrice', filterTourByPrice);
+
+router.post('/filterTourByDeparture', filterTourByDeparture);
+
+router.post('/filterTourByTime', filterTourByTime);
 
 export default router;

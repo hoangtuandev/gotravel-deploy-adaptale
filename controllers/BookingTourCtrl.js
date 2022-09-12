@@ -39,6 +39,125 @@ export const getBookingTourByTouristAccount = async (req, res) => {
     }
 };
 
+export const filterBookingTourByParams = async (req, res) => {
+    try {
+        const params = req.body.params;
+        const status = req.body.bt_trangthai;
+        const departureFilter = new Date(req.body.params.departure);
+        const timeFilter = new Date(req.body.params.time);
+
+        const filterByDeparture = (booking) => {
+            const date = new Date(booking.bt_lichkhoihanh.lkh_ngaykhoihanh);
+            return (
+                date.toLocaleDateString() ===
+                departureFilter.toLocaleDateString()
+            );
+        };
+
+        const filterByBookingDate = (booking) => {
+            const date = new Date(booking.bt_ngaydat);
+            return (
+                date.toLocaleDateString() === timeFilter.toLocaleDateString()
+            );
+        };
+
+        var bookings = await BookingTourModel.find({
+            bt_tongthanhtoan: { $gte: params.price[0], $lte: params.price[1] },
+            bt_trangthai: status,
+        });
+
+        if (!params.allDeparture) {
+            const newBooking = [...bookings];
+            const filterBookings = newBooking.filter(filterByDeparture);
+            bookings = [...filterBookings];
+        }
+
+        if (!params.allTime) {
+            const newBooking = [...bookings];
+            const filterBookings = newBooking.filter(filterByBookingDate);
+            bookings = [...filterBookings];
+        }
+
+        // if (params.allDeparture) {
+        //     console.log('allDeparture');
+        //     const result = bookings.filter(filterByBookingDate);
+        //     res.status(200).json(result);
+        // } else {
+        //     const newBookings = bookings.filter(filterByDeparture);
+        //     console.log('dont allDeparture');
+        //     if (params.allTime) {
+        //         res.status(200).json(newBookings);
+        //     } else {
+        //         const result = newBookings.filter(filterByBookingDate);
+        //         res.status(200).json(result);
+        //     }
+        // }
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterBookingTourByPrice = async (req, res) => {
+    try {
+        const params = req.body;
+        const result = await BookingTourModel.find({
+            bt_tongthanhtoan: { $gte: params.price[0], $lte: params.price[1] },
+            bt_trangthai: params.bt_trangthai,
+        }).sort({ bt_tongthanhtoan: 1 });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterBookingTourByDeparture = async (req, res) => {
+    try {
+        const params = req.body;
+        const bookings = await BookingTourModel.find({
+            bt_trangthai: params.bt_trangthai,
+        });
+        const filterDeparture = new Date(params.departure);
+
+        const filterByDeparture = (booking) => {
+            const departure = new Date(
+                booking.bt_lichkhoihanh.lkh_ngaykhoihanh
+            );
+            return (
+                departure.toLocaleDateString() ===
+                filterDeparture.toLocaleDateString()
+            );
+        };
+
+        const result = bookings.filter(filterByDeparture);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterBookingTourByBookingDate = async (req, res) => {
+    try {
+        const params = req.body;
+        const bookings = await BookingTourModel.find({
+            bt_trangthai: params.bt_trangthai,
+        });
+        const bookingDate = new Date(params.time);
+
+        const filterByBookingDate = (booking) => {
+            const date = new Date(booking.bt_ngaydat);
+            return (
+                date.toLocaleDateString() === bookingDate.toLocaleDateString()
+            );
+        };
+
+        const result = bookings.filter(filterByBookingDate);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const updateBookingTourWorking = async (req, res) => {
     try {
         const status = req.body.bt_trangthai;
@@ -56,7 +175,7 @@ export const updateBookingTourWorking = async (req, res) => {
                     { _id: bookings[i]._id },
                     {
                         $set: {
-                            bt_trangthai: status,
+                            bt_trangthai: 3,
                         },
                     }
                 );
@@ -108,7 +227,6 @@ export const bookingTour = async (req, res) => {
         await bookingTour.save();
 
         res.status(200).json(bookingTour);
-        console.log(inforBooking);
     } catch (error) {
         res.status(500).json({ error: error });
     }

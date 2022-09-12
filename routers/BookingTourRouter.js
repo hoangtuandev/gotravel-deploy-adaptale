@@ -2,6 +2,10 @@ import express from 'express';
 
 import {
     bookingTour,
+    filterBookingTourByBookingDate,
+    filterBookingTourByDeparture,
+    filterBookingTourByParams,
+    filterBookingTourByPrice,
     getAllBookingTour,
     getBookingTourByStatus,
     getBookingTourByTouristAccount,
@@ -25,5 +29,13 @@ router.post('/getBookingTourByTouristAccount', getBookingTourByTouristAccount);
 router.post('/bookingTour', bookingTour);
 
 router.post('/updateStatusBookingTour', updateStatusBookingTour);
+
+router.post('/filterBookingTourByParams', filterBookingTourByParams);
+
+router.post('/filterBookingTourByPrice', filterBookingTourByPrice);
+
+router.post('/filterBookingTourByDeparture', filterBookingTourByDeparture);
+
+router.post('/filterBookingTourByBookingDate', filterBookingTourByBookingDate);
 
 export default router;

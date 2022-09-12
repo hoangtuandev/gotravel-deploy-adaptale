@@ -112,38 +112,60 @@ export const getTourByParamsFilter = async (req, res) => {
     try {
         const params = req.body;
         const departure = new Date(params.departure);
-        // console.log(params);
-        // console.log(departure);
 
         const result = await TourModel.find({
             t_thoigian: true,
         });
 
         res.status(200).json(result);
-        // if (
-        //     params.checkedPriceAll &&
-        //     !params.checkedDepartureAll &&
-        //     !params.checkedTimeAll
-        // ) {
-        //     const result = await TourModel.find({
-        //         t_thoigian: params.time,
-        //     });
-        //     res.status(200).json(result);
-        // } else if (
-        //     params.checkedPriceAll &&
-        //     !params.checkedDepartureAll &&
-        //     !params.checkedTimeAll
-        // ) {
-        //      const result = await TourModel.find({
-        //          t_thoigian: params.time,
-        //      });
-        //      res.status(200).json(result);
-        // } else {
-        // }
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
 
-        // const result = await TourModel.find({
-        //     t_gia: { $gte: params.minPrice, $lte: params.maxPrice },
-        // }).sort({ t_gia: 1 });
+export const filterTourByPrice = async (req, res) => {
+    try {
+        const params = req.body;
+        const result = await TourModel.find({
+            t_gia: { $gte: params.price[0], $lte: params.price[1] },
+        }).sort({ t_gia: 1 });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterTourByDeparture = async (req, res) => {
+    try {
+        const params = req.body;
+        const tours = await TourModel.find();
+        const filterDeparture = new Date(params.departure);
+
+        const filterByDeparture = (tour) => {
+            for (let i = 0; i < tour.t_lichkhoihanh.length; i++) {
+                const departure = new Date(
+                    tour.t_lichkhoihanh[i].lkh_ngaykhoihanh
+                );
+
+                return (
+                    departure.toLocaleDateString() ===
+                    filterDeparture.toLocaleDateString()
+                );
+            }
+        };
+
+        const result = tours.filter(filterByDeparture);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterTourByTime = async (req, res) => {
+    try {
+        const time = req.body.time;
+        const result = await TourModel.find({ t_thoigian: time });
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });
     }
@@ -156,7 +178,6 @@ export const bookingTour = async (req, res) => {
         await bookingTour.save();
 
         res.status(200).json(bookingTour);
-        console.log(inforBooking);
     } catch (error) {
         res.status(500).json({ error: error });
     }
