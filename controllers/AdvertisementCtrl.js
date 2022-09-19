@@ -20,6 +20,17 @@ export const getActiveAdvertisement = async (req, res) => {
     }
 };
 
+export const getRemoveAdvertisement = async (req, res) => {
+    try {
+        const advertisements = await AdvertisementModel.find({
+            bvqb_trangthai: 2,
+        });
+        res.status(200).json(advertisements);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const createAdvertisement = async (req, res) => {
     try {
         const advertisement = new AdvertisementModel(req.body);
@@ -46,6 +57,51 @@ export const updateAdvertisement = async (req, res) => {
                 },
             }
         );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const removeAdvertisement = async (req, res) => {
+    try {
+        const advertisement = req.body;
+        const result = await AdvertisementModel.updateOne(
+            { _id: advertisement._id },
+            {
+                $set: {
+                    bvqb_trangthai: 2,
+                },
+            }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const activeAdvertisement = async (req, res) => {
+    try {
+        const advertisement = req.body;
+        const result = await AdvertisementModel.updateOne(
+            { _id: advertisement._id },
+            {
+                $set: {
+                    bvqb_trangthai: 1,
+                },
+            }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const deleteAdvertisement = async (req, res) => {
+    try {
+        const id = req.body.id;
+        console.log(id);
+        const result = await AdvertisementModel.deleteOne({ _id: id });
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });

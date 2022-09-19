@@ -26,7 +26,7 @@ const schema = new mongoose.Schema({
     bvqb_trangthai: {
         type: Number,
         // 1: Đang đăng
-        // 0: Đã gỡ
+        // 2: Go
     },
 });
 
