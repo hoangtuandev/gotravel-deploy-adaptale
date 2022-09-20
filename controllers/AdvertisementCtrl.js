@@ -13,7 +13,7 @@ export const getActiveAdvertisement = async (req, res) => {
     try {
         const advertisements = await AdvertisementModel.find({
             bvqb_trangthai: 1,
-        });
+        }).sort({ bvqb_ngaydang: -1 });
         res.status(200).json(advertisements);
     } catch (error) {
         res.status(500).json({ error: error });
@@ -100,8 +100,46 @@ export const activeAdvertisement = async (req, res) => {
 export const deleteAdvertisement = async (req, res) => {
     try {
         const id = req.body.id;
-        console.log(id);
+
         const result = await AdvertisementModel.deleteOne({ _id: id });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const likeAdvertisement = async (req, res) => {
+    try {
+        const advertisement = req.body;
+        const result = await AdvertisementModel.updateOne(
+            {
+                _id: advertisement._id,
+            },
+            {
+                $set: {
+                    bvqb_luotthich: advertisement.bvqb_luotthich + 1,
+                },
+            }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const dislikeAdvertisement = async (req, res) => {
+    try {
+        const advertisement = req.body;
+        const result = await AdvertisementModel.updateOne(
+            {
+                _id: advertisement._id,
+            },
+            {
+                $set: {
+                    bvqb_luotthich: advertisement.bvqb_luotthich - 1,
+                },
+            }
+        );
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });
