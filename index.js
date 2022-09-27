@@ -19,6 +19,9 @@ import CalendarGuideRouter from './routers/CalendarGuideRouter.js';
 import RatingTourRouter from './routers/RatingTourRouter.js';
 import AdvertisementRouter from './routers/AdvertisementRouter.js';
 import InteractAdvertisementRouter from './routers/InteractAdvertisementRouter.js';
+import GuideRouter from './routers/GuideRouter.js';
+import GuideAccountRouter from './routers/GuideAccountRouter.js';
+import GuideCardRouter from './routers/GuideCardRouter.js';
 
 const app = express();
 dotenv.config();
@@ -49,6 +52,9 @@ app.use('/CalendarGuide', CalendarGuideRouter);
 app.use('/RatingTour', RatingTourRouter);
 app.use('/Advertisement', AdvertisementRouter);
 app.use('/InteractAdvertisement', InteractAdvertisementRouter);
+app.use('/Guide', GuideRouter);
+app.use('/GuideAccount', GuideAccountRouter);
+app.use('/GuideCard', GuideCardRouter);
 
 mongoose
     .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
