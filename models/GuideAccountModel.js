@@ -7,6 +7,9 @@ const schema = new mongoose.Schema({
     tkhdv_matkhau: {
         type: String,
     },
+    tkhdv_anhdaidien: {
+        type: String,
+    },
     tkhdv_trangthai: {
         type: Number,
     },

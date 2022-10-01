@@ -7,8 +7,11 @@ const schema = new mongoose.Schema({
     hdv_hoten: {
         type: String,
     },
-    hdv_ngaysinh: {
-        type: Date,
+    hdv_gioitinh: {
+        type: String,
+    },
+    hdv_namsinh: {
+        type: Number,
     },
     hdv_quequan: {
         type: String,

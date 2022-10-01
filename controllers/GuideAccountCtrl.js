@@ -37,3 +37,33 @@ export const handleLogin = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const createAccountGuide = async (req, res) => {
+    try {
+        const newAccount = req.body;
+        const result = new GuideAccountModel(newAccount);
+        await result.save();
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const updateProfileGuideOfAccount = async (req, res) => {
+    try {
+        const profile = req.body;
+        const result = await GuideAccountModel.updateOne(
+            {
+                _id: profile._id,
+            },
+            {
+                $set: {
+                    tkhdv_huongdanvien: profile.tkhdv_huongdanvien,
+                },
+            }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
