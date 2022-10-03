@@ -1,24 +1,24 @@
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
-    dgt_ma: {
+    dghdv_ma: {
         type: String,
     },
-    dgt_khachdulich: {
+    dghdv_khachdulich: {
         type: Object,
     },
-    dgt_tour: {
+    dghdv_huongdanvien: {
         type: String,
     },
-    dgt_thoigian: {
+    dghdv_thoigian: {
         type: Date,
     },
-    dgt_saodanhgia: {
+    dghdv_saodanhgia: {
         type: Number,
     },
-    dgt_nhanxet: {
+    dghdv_nhanxet: {
         type: String,
     },
 });
 
-export const RatingTourModel = mongoose.model('DanhGiaTour', schema);
+export const RatingGuideModel = mongoose.model('DanhGiaHuongDanVien', schema);

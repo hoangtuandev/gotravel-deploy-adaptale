@@ -10,6 +10,24 @@ export const getAllGuideAccount = async (req, res) => {
     }
 };
 
+export const getActiveGuideAccount = async (req, res) => {
+    try {
+        const result = await GuideAccountModel.find({ tkhdv_trangthai: 1 });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getLockedGuideAccount = async (req, res) => {
+    try {
+        const result = await GuideAccountModel.find({ tkhdv_trangthai: 0 });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const handleLogin = async (req, res) => {
     try {
         const user = await GuideAccountModel.findOne({
@@ -59,6 +77,44 @@ export const updateProfileGuideOfAccount = async (req, res) => {
             {
                 $set: {
                     tkhdv_huongdanvien: profile.tkhdv_huongdanvien,
+                },
+            }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const lockProfile = async (req, res) => {
+    try {
+        const profile = req.body;
+        const result = await GuideAccountModel.updateOne(
+            {
+                _id: profile._id,
+            },
+            {
+                $set: {
+                    tkhdv_trangthai: 0,
+                },
+            }
+        );
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const activeProfile = async (req, res) => {
+    try {
+        const profile = req.body;
+        const result = await GuideAccountModel.updateOne(
+            {
+                _id: profile._id,
+            },
+            {
+                $set: {
+                    tkhdv_trangthai: 1,
                 },
             }
         );
