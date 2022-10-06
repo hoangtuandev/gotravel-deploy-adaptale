@@ -40,8 +40,3 @@ export const deleteDeparture = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
-
-// export const getAllDepartureByTour = async (req, res) => {
-//     try {
-//     } catch (error) {}
-// };

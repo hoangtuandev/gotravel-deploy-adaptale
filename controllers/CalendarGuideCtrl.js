@@ -17,7 +17,6 @@ export const addCalendarGuide = async (req, res) => {
         const data = req.body;
         const calendar = new CalendarGuideModel(data);
         await calendar.save();
-
         res.status(200).json(calendar);
     } catch (error) {
         res.status(500).json({ error: error });

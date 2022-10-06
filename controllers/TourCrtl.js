@@ -1,3 +1,5 @@
+import { CalendarGuideModel } from '../models/CalendarGuideModel.js';
+import { DepartureModel } from '../models/DepartureModel.js';
 import { TourModel } from '../models/TourModel.js';
 
 export const getAllTour = async (req, res) => {
@@ -396,3 +398,82 @@ export const updateActiveTour = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+// export const takeThirtyNextDateDeparture = async (req, res) => {
+//     try {
+//         // Get start day
+//         var start = new Date();
+//         start.setDate(start.getDate() + 3);
+//         var startDateString = new Date(start.toISOString().split('T')[0]);
+//         const startDate = new Date(startDateString.toLocaleDateString());
+//         // Get 30 next day
+//         var end = new Date();
+//         end.setDate(end.getDate() + 33);
+//         var endDateString = new Date(end.toISOString().split('T')[0]);
+//         const endDate = new Date(endDateString.toLocaleDateString());
+
+//         const tours = await TourModel.find();
+//         const departures = await DepartureModel.find({
+//             lkh_ngaykhoihanh: { $gte: startDate, $lte: endDate },
+//         }).sort({ lkh_ngaykhoihanh: 1 });
+
+//         var filtedCalender = [];
+//         for (let y = 0; y < departures.length; y++) {
+//             for (let i = 0; i < tours.length; i++) {
+//                 for (let x = 0; x < tours[i].t_lichkhoihanh.length; x++) {
+//                     if (
+//                         departures[y]._id.toString() ===
+//                         tours[i].t_lichkhoihanh[x]._id
+//                     ) {
+//                         filtedCalender.push({
+//                             tour: tours[i],
+//                             departure: departures[y],
+//                         });
+//                     }
+//                 }
+//             }
+//         }
+//         const calenders = await CalendarGuideModel.find();
+//         // for (let i = 0; i < filtedCalender.length; i++) {
+//         //     const calendar = new CalendarGuideModel({
+//         //         ldt_tour: filtedCalender[i].tour,
+//         //         ldt_lichkhoihanh: filtedCalender[i].departure,
+//         //         ldt_huongdanvien: [],
+//         //     });
+//         //     await calendar.save();
+//         // }
+
+//         // FILTER ALREADY CALENDAR
+//         const filterAlreadyCalender = (calender) => {
+//             if (calenders.length === 0) {
+//             } else {
+//                 for (let i = 0; i < calenders.length; i++) {
+//                     if (
+//                         calenders[i].ldt_lichkhoihanh._id.toString() ===
+//                         calender.departure._id.toString()
+//                     ) {
+//                         return calender;
+//                     }
+//                 }
+//             }
+//         };
+//         const alreadyCalender = filtedCalender.filter(filterAlreadyCalender);
+
+//         // const arr1 = [4, 23, 7, 6, 3, 6, 4, 3, 56, 4];
+//         // const arr2 = [4, 56, 23];
+//         const filterArray = (calenders, alreadyCalender) => {
+//             const filtered = calenders.filter((el) => {
+//                 return alreadyCalender.indexOf(el) === -1;
+//             });
+//             return filtered;
+//         };
+
+//         console.log(calenders.length);
+//         console.log(alreadyCalender.length);
+//         // console.log(filterArray(calenders, alreadyCalender).length);
+
+//         res.status(200).json(filtedCalender);
+//     } catch (error) {
+//         res.status(500).json({ error: error });
+//     }
+// };

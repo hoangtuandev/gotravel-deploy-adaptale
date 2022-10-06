@@ -68,4 +68,6 @@ router.post('/filterTourByDeparture', filterTourByDeparture);
 
 router.post('/filterTourByTime', filterTourByTime);
 
+// router.get('/takeThirtyNextDateDeparture', takeThirtyNextDateDeparture);
+
 export default router;

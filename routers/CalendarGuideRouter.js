@@ -1,7 +1,7 @@
 import express from 'express';
 import {
-    addCalendarGuide,
     getCalendarGuide,
+    addCalendarGuide,
 } from '../controllers/CalendarGuideCtrl.js';
 
 const router = express.Router();

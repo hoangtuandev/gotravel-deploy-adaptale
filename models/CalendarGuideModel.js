@@ -10,9 +10,6 @@ const schema = new mongoose.Schema({
     ldt_huongdanvien: {
         type: Array,
     },
-    ldt_soluonghdv: {
-        type: Number,
-    },
 });
 
 export const CalendarGuideModel = mongoose.model('LichDanTour', schema);
