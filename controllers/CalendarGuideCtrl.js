@@ -22,3 +22,59 @@ export const addCalendarGuide = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const registerCalendarGuideTour = async (req, res) => {
+    try {
+        const newGuide = req.body.guide;
+        const idCalendar = req.body.idCalendar;
+        const calendar = await CalendarGuideModel.find({ _id: idCalendar });
+
+        var guideCurrent = calendar[0].ldt_huongdanvien;
+        guideCurrent.push(newGuide);
+
+        const result = await CalendarGuideModel.updateOne(
+            {
+                _id: idCalendar,
+            },
+            {
+                $set: {
+                    ldt_huongdanvien: guideCurrent,
+                },
+            }
+        );
+        const newCalendars = await CalendarGuideModel.find();
+        res.status(200).json(newCalendars);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const cancelCalendarGuideTour = async (req, res) => {
+    try {
+        const idAccount = req.body.guide._id;
+        const idCalendar = req.body.idCalendar;
+        const calendar = await CalendarGuideModel.find({ _id: idCalendar });
+        const registedGuides = calendar[0].ldt_huongdanvien;
+
+        const filterRegistedGuides = (guide) => {
+            return guide._id.toString() !== idAccount.toString();
+        };
+        // const result = registedGuides.filter(filterRegistedGuides);
+
+        const result = await CalendarGuideModel.updateOne(
+            {
+                _id: idCalendar,
+            },
+            {
+                $set: {
+                    ldt_huongdanvien:
+                        registedGuides.filter(filterRegistedGuides),
+                },
+            }
+        );
+        const newCalendars = await CalendarGuideModel.find();
+        res.status(200).json(newCalendars);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
