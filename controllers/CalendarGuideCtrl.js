@@ -12,6 +12,42 @@ export const getCalendarGuide = async (req, res) => {
     }
 };
 
+export const getAvairiableCalendarGuide = async (req, res) => {
+    try {
+        const calendars = await CalendarGuideModel.find();
+
+        const filterCalendarAvaiable = (calendar) => {
+            if (
+                calendar.ldt_tour.t_soluonghuongdanvien >
+                calendar.ldt_huongdanvien.length
+            ) {
+                return calendar;
+            }
+        };
+        const result = calendars.filter(filterCalendarAvaiable);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getCalendarGuideByAccount = async (req, res) => {
+    try {
+        const calendars = await CalendarGuideModel.find();
+        const filterCalendarByAccount = (calendar) => {
+            for (let i = 0; i < calendar.ldt_huongdanvien.length; i++) {
+                if (calendar.ldt_huongdanvien[i]._id === req.body.idAccount) {
+                    return calendar;
+                }
+            }
+        };
+        const result = calendars.filter(filterCalendarByAccount);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const addCalendarGuide = async (req, res) => {
     try {
         const data = req.body;
