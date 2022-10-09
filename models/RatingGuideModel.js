@@ -4,11 +4,11 @@ const schema = new mongoose.Schema({
     dghdv_ma: {
         type: String,
     },
-    dghdv_khachdulich: {
-        type: Object,
-    },
     dghdv_huongdanvien: {
         type: String,
+    },
+    dghdv_booking: {
+        type: Object,
     },
     dghdv_thoigian: {
         type: Date,

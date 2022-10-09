@@ -48,6 +48,24 @@ export const getCalendarGuideByAccount = async (req, res) => {
     }
 };
 
+export const getCalendarGuideByDeparture = async (req, res) => {
+    try {
+        const idDeparture = req.body._id;
+        const calendars = await CalendarGuideModel.find();
+
+        const filterCalendar = (calendar) => {
+            if (idDeparture === calendar.ldt_lichkhoihanh._id.toString()) {
+                return calendar;
+            }
+        };
+
+        const result = calendars.filter(filterCalendar);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const addCalendarGuide = async (req, res) => {
     try {
         const data = req.body;

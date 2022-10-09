@@ -6,6 +6,7 @@ import {
     cancelCalendarGuideTour,
     getCalendarGuideByAccount,
     getAvairiableCalendarGuide,
+    getCalendarGuideByDeparture,
 } from '../controllers/CalendarGuideCtrl.js';
 
 const router = express.Router();
@@ -21,5 +22,7 @@ router.post('/cancelCalendarGuideTour', cancelCalendarGuideTour);
 router.post('/getCalendarGuideByAccount', getCalendarGuideByAccount);
 
 router.get('/getAvairiableCalendarGuide', getAvairiableCalendarGuide);
+
+router.post('/getCalendarGuideByDeparture', getCalendarGuideByDeparture);
 
 export default router;
