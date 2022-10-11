@@ -132,3 +132,65 @@ export const cancelCalendarGuideTour = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const getGuideTimesByAccount = async (req, res) => {
+    try {
+        const username = req.body.username;
+        const current = new Date();
+
+        const calendars = await CalendarGuideModel.find();
+        const filterCalendarsGuided = (calendar) => {
+            const finishDate = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngayketthuc
+            );
+            for (let i = 0; i < calendar.ldt_huongdanvien.length; i++) {
+                if (
+                    calendar.ldt_huongdanvien[i].tkhdv_tendangnhap ===
+                        username &&
+                    finishDate < current
+                ) {
+                    return calendar;
+                }
+            }
+        };
+        const result = calendars.filter(filterCalendarsGuided);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getStatusCurrentOfGuide = async (req, res) => {
+    try {
+        const username = req.body.username;
+        const calendars = await CalendarGuideModel.find();
+        const current = new Date();
+
+        const filterHappenningCalendar = (calendar) => {
+            const startDate = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngaykhoihanh
+            );
+            const finishDate = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngayketthuc
+            );
+            for (let i = 0; i < calendar.ldt_huongdanvien.length; i++) {
+                if (
+                    calendar.ldt_huongdanvien[i].tkhdv_tendangnhap ===
+                        username &&
+                    startDate <= current &&
+                    finishDate >= current
+                ) {
+                    return calendar;
+                }
+            }
+        };
+        const result = calendars.filter(filterHappenningCalendar);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+// parseInt(
+//                         calendar.ldt_lichkhoihanh.lkh_ngayketthuc.getTime()
+//                     ) > parseInt(current.getTime())

@@ -162,7 +162,9 @@ export const updateBookingTourWorking = async (req, res) => {
     try {
         const status = req.body.bt_trangthai;
         const currentDate = new Date();
-        const bookings = await BookingTourModel.find({ bt_trangthai: 2 });
+        const bookings = await BookingTourModel.find({
+            bt_trangthai: { $gte: 2 },
+        });
 
         for (let i = 0; i < bookings.length; i++) {
             const start = new Date(
@@ -193,7 +195,10 @@ export const updateBookingTourFinish = async (req, res) => {
     try {
         const status = req.body.bt_trangthai;
         const currentDate = new Date();
-        const bookings = await BookingTourModel.find({ bt_trangthai: 3 });
+        // const bookings = await BookingTourModel.find({ bt_trangthai: 3 });
+        const bookings = await BookingTourModel.find({
+            bt_trangthai: { $gte: 2 },
+        });
 
         for (let i = 0; i < bookings.length; i++) {
             const start = new Date(

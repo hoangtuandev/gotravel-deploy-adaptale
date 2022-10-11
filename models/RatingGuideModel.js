@@ -1,11 +1,8 @@
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
-    dghdv_ma: {
-        type: String,
-    },
     dghdv_huongdanvien: {
-        type: String,
+        type: Object,
     },
     dghdv_booking: {
         type: Object,

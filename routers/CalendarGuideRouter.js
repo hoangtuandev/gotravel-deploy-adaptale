@@ -7,6 +7,8 @@ import {
     getCalendarGuideByAccount,
     getAvairiableCalendarGuide,
     getCalendarGuideByDeparture,
+    getGuideTimesByAccount,
+    getStatusCurrentOfGuide,
 } from '../controllers/CalendarGuideCtrl.js';
 
 const router = express.Router();
@@ -24,5 +26,9 @@ router.post('/getCalendarGuideByAccount', getCalendarGuideByAccount);
 router.get('/getAvairiableCalendarGuide', getAvairiableCalendarGuide);
 
 router.post('/getCalendarGuideByDeparture', getCalendarGuideByDeparture);
+
+router.post('/getGuideTimesByAccount', getGuideTimesByAccount);
+
+router.post('/getStatusCurrentOfGuide', getStatusCurrentOfGuide);
 
 export default router;

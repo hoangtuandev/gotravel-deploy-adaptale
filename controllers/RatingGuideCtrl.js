@@ -9,20 +9,39 @@ export const getAllRatingGuide = async (req, res) => {
     }
 };
 
-// export const getRatingGuideByTourist = async (req, res) => {
-//     try {
-//         const tourist = req.body.tourist;
-//         const tour = req.body.tour;
+export const getRatingGuideByBooking = async (req, res) => {
+    try {
+        const idBooking = req.body._id;
 
-//         const result = await RatingGuideModel.find({
-//             dgt_khachdulich: tourist,
-//             dgt_tour: tour,
-//         });
-//         res.status(200).json(result);
-//     } catch (error) {
-//         res.status(500).json({ error: error });
-//     }
-// };
+        const ratings = await RatingGuideModel.find();
+
+        const filterRatings = (rating) => {
+            return rating.dghdv_booking._id === idBooking;
+        };
+
+        const result = ratings.filter(filterRatings);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getRatingGuideByGuideAccount = async (req, res) => {
+    try {
+        const idAccount = req.body._id;
+
+        const ratings = await RatingGuideModel.find();
+
+        const filterRatings = (rating) => {
+            return rating.dghdv_huongdanvien._id === idAccount;
+        };
+
+        const result = ratings.filter(filterRatings);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
 
 export const createRatingGuide = async (req, res) => {
     try {
@@ -32,6 +51,29 @@ export const createRatingGuide = async (req, res) => {
         await newRating.save();
 
         res.status(200).json(newRating);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const updateRatingGuide = async (req, res) => {
+    try {
+        const idRating = req.body._id;
+        const star = req.body.dghdv_saodanhgia;
+        const comment = req.body.dghdv_nhanxet;
+
+        const result = await RatingGuideModel.updateOne(
+            {
+                _id: idRating,
+            },
+            {
+                $set: {
+                    dghdv_saodanhgia: star,
+                    dghdv_nhanxet: comment,
+                },
+            }
+        );
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });
     }
