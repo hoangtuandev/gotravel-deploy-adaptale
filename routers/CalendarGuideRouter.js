@@ -9,6 +9,7 @@ import {
     getCalendarGuideByDeparture,
     getGuideTimesByAccount,
     getStatusCurrentOfGuide,
+    get30NextDayCalendarGuide,
 } from '../controllers/CalendarGuideCtrl.js';
 
 const router = express.Router();
@@ -30,5 +31,7 @@ router.post('/getCalendarGuideByDeparture', getCalendarGuideByDeparture);
 router.post('/getGuideTimesByAccount', getGuideTimesByAccount);
 
 router.post('/getStatusCurrentOfGuide', getStatusCurrentOfGuide);
+
+router.post('/get30NextDayCalendarGuide', get30NextDayCalendarGuide);
 
 export default router;

@@ -12,6 +12,29 @@ export const getCalendarGuide = async (req, res) => {
     }
 };
 
+export const get30NextDayCalendarGuide = async (req, res) => {
+    try {
+        const current = new Date();
+        const calendars = await CalendarGuideModel.find();
+
+        const filterCalendar = (calendar) => {
+            const departureDate = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngaykhoihanh
+            );
+
+            if (departureDate > current) {
+                return calendar;
+            }
+        };
+
+        const result = calendars.filter(filterCalendar);
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const getAvairiableCalendarGuide = async (req, res) => {
     try {
         const calendars = await CalendarGuideModel.find();
