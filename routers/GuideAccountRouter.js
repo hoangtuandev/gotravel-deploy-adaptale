@@ -8,6 +8,7 @@ import {
     updateProfileGuideOfAccount,
     getLockedGuideAccount,
     activeProfile,
+    searchingGuide,
 } from '../controllers/GuideAccountCtrl.js';
 
 const router = express.Router();
@@ -27,5 +28,7 @@ router.post('/lockProfile', lockProfile);
 router.post('/activeProfile', activeProfile);
 
 router.post('/updateProfileGuideOfAccount', updateProfileGuideOfAccount);
+
+router.post('/searchingGuide', searchingGuide);
 
 export default router;

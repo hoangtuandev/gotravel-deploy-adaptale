@@ -78,20 +78,6 @@ export const filterBookingTourByParams = async (req, res) => {
             bookings = [...filterBookings];
         }
 
-        // if (params.allDeparture) {
-        //     console.log('allDeparture');
-        //     const result = bookings.filter(filterByBookingDate);
-        //     res.status(200).json(result);
-        // } else {
-        //     const newBookings = bookings.filter(filterByDeparture);
-        //     console.log('dont allDeparture');
-        //     if (params.allTime) {
-        //         res.status(200).json(newBookings);
-        //     } else {
-        //         const result = newBookings.filter(filterByBookingDate);
-        //         res.status(200).json(result);
-        //     }
-        // }
         res.status(200).json(bookings);
     } catch (error) {
         res.status(500).json({ error: error });
@@ -173,7 +159,7 @@ export const updateBookingTourWorking = async (req, res) => {
             const end = new Date(bookings[i].bt_lichkhoihanh.lkh_ngayketthuc);
 
             if (currentDate >= start && currentDate <= end) {
-                const update = BookingTourModel.updateOne(
+                const update = await BookingTourModel.updateOne(
                     { _id: bookings[i]._id },
                     {
                         $set: {
@@ -181,11 +167,12 @@ export const updateBookingTourWorking = async (req, res) => {
                         },
                     }
                 );
+                res.status(200).json(update);
                 return update;
             }
         }
 
-        res.status(200).json();
+        // res.status(200).json();
     } catch (error) {
         res.status(500).json({ error: error });
     }
@@ -193,33 +180,30 @@ export const updateBookingTourWorking = async (req, res) => {
 
 export const updateBookingTourFinish = async (req, res) => {
     try {
-        const status = req.body.bt_trangthai;
         const currentDate = new Date();
-        // const bookings = await BookingTourModel.find({ bt_trangthai: 3 });
+
         const bookings = await BookingTourModel.find({
             bt_trangthai: { $gte: 2 },
         });
 
         for (let i = 0; i < bookings.length; i++) {
-            const start = new Date(
-                bookings[i].bt_lichkhoihanh.lkh_ngaykhoihanh
-            );
             const end = new Date(bookings[i].bt_lichkhoihanh.lkh_ngayketthuc);
 
-            if (currentDate > end) {
-                const update = BookingTourModel.updateOne(
+            if (currentDate >= end) {
+                const update = await BookingTourModel.updateOne(
                     { _id: bookings[i]._id },
                     {
                         $set: {
-                            bt_trangthai: status,
+                            bt_trangthai: 4,
                         },
                     }
                 );
+                res.status(200).json(update);
                 return update;
             }
         }
 
-        res.status(200).json();
+        // res.status(200).json();
     } catch (error) {
         res.status(500).json({ error: error });
     }
