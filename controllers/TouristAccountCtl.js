@@ -62,3 +62,13 @@ export const signInTourist = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const countAmountTouristAccount = async (req, res) => {
+    try {
+        const amount = await TouristAccountModel.count();
+
+        res.status(200).json(amount);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

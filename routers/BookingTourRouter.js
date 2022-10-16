@@ -2,6 +2,7 @@ import express from 'express';
 
 import {
     bookingTour,
+    countAmountBooking,
     filterBookingTourByBookingDate,
     filterBookingTourByDeparture,
     filterBookingTourByParams,
@@ -9,6 +10,9 @@ import {
     getAllBookingTour,
     getBookingTourByStatus,
     getBookingTourByTouristAccount,
+    getYearsBookingTour,
+    revenueBookingTourByMonth,
+    totalRevenueBookingTour,
     updateBookingTourFinish,
     updateBookingTourWorking,
     updateStatusBookingTour,
@@ -37,5 +41,13 @@ router.post('/filterBookingTourByPrice', filterBookingTourByPrice);
 router.post('/filterBookingTourByDeparture', filterBookingTourByDeparture);
 
 router.post('/filterBookingTourByBookingDate', filterBookingTourByBookingDate);
+
+router.get('/countAmountBooking', countAmountBooking);
+
+router.get('/totalRevenueBookingTour', totalRevenueBookingTour);
+
+router.post('/revenueBookingTourByMonth', revenueBookingTourByMonth);
+
+router.get('/getYearsBookingTour', getYearsBookingTour);
 
 export default router;

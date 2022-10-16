@@ -77,6 +77,7 @@ export const updateProfileGuideOfAccount = async (req, res) => {
             {
                 $set: {
                     tkhdv_huongdanvien: profile.tkhdv_huongdanvien,
+                    tkhdv_anhdaidien: profile.tkhdv_anhdaidien,
                 },
             }
         );
@@ -169,6 +170,16 @@ export const searchingGuide = async (req, res) => {
         const result = guideAccounts.filter(fillterAccountGuide);
 
         res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const countAmountGuide = async (req, res) => {
+    try {
+        const amount = await GuideAccountModel.count();
+
+        res.status(200).json(amount);
     } catch (error) {
         res.status(500).json({ error: error });
     }

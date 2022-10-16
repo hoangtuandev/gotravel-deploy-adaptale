@@ -23,6 +23,7 @@ import InteractAdvertisementRouter from './routers/InteractAdvertisementRouter.j
 import GuideRouter from './routers/GuideRouter.js';
 import GuideAccountRouter from './routers/GuideAccountRouter.js';
 import GuideCardRouter from './routers/GuideCardRouter.js';
+import QualityGuideRouter from './routers/QualityGuideRouter.js';
 
 const app = express();
 dotenv.config();
@@ -57,6 +58,7 @@ app.use('/InteractAdvertisement', InteractAdvertisementRouter);
 app.use('/Guide', GuideRouter);
 app.use('/GuideAccount', GuideAccountRouter);
 app.use('/GuideCard', GuideCardRouter);
+app.use('/QualityGuide', QualityGuideRouter);
 
 mongoose
     .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })

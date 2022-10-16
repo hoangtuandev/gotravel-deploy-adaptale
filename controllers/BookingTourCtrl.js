@@ -237,3 +237,96 @@ export const updateStatusBookingTour = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const countAmountBooking = async (req, res) => {
+    try {
+        const amount = await BookingTourModel.count();
+
+        res.status(200).json(amount);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getYearsBookingTour = async (req, res) => {
+    try {
+        const years = await BookingTourModel.aggregate([
+            { $group: { _id: { $year: '$bt_ngaydat' } } },
+        ]);
+
+        const result = [];
+
+        for (let i = 0; i < years.length; i++) {
+            result.push({ value: years[i]._id, label: years[i]._id });
+        }
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const totalRevenueBookingTour = async (req, res) => {
+    try {
+        const revenue = await BookingTourModel.aggregate([
+            { $match: { bt_trangthai: 4 } },
+            {
+                $group: {
+                    _id: null,
+                    totalPayment: { $sum: '$bt_tongthanhtoan' },
+                },
+            },
+        ]);
+        res.status(200).json(revenue);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const revenueBookingTourByMonth = async (req, res) => {
+    try {
+        const currentYear = req.body.currentYear;
+
+        const bookings = await BookingTourModel.aggregate([
+            {
+                $group: {
+                    _id: {
+                        year: { $year: '$bt_ngaydat' },
+                        month: { $month: '$bt_ngaydat' },
+                    },
+                    total_revenue_month: { $sum: '$bt_tongthanhtoan' },
+                },
+            },
+            {
+                $sort: { _id: 1 },
+            },
+        ]);
+
+        const bookingsByYear = bookings.filter((booking) => {
+            if (booking._id.year === currentYear) {
+                return booking;
+            }
+        });
+
+        const revenuesMonth = [];
+
+        for (let i = 1; i <= 12; i++) {
+            var mark = null;
+            for (let n = 0; n < bookingsByYear.length; n++) {
+                if (i.toString() === bookingsByYear[n]._id.month.toString()) {
+                    mark = bookingsByYear[n];
+                }
+            }
+
+            if (mark) {
+                revenuesMonth.push(mark.total_revenue_month);
+            } else {
+                revenuesMonth.push(0);
+            }
+        }
+
+        res.status(200).json(revenuesMonth);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

@@ -9,6 +9,7 @@ import {
     getLockedGuideAccount,
     activeProfile,
     searchingGuide,
+    countAmountGuide,
 } from '../controllers/GuideAccountCtrl.js';
 
 const router = express.Router();
@@ -30,5 +31,7 @@ router.post('/activeProfile', activeProfile);
 router.post('/updateProfileGuideOfAccount', updateProfileGuideOfAccount);
 
 router.post('/searchingGuide', searchingGuide);
+
+router.get('/countAmountGuide', countAmountGuide);
 
 export default router;

@@ -2,6 +2,7 @@ import express from 'express';
 
 import {
     bookingTour,
+    countAmountTour,
     createTour,
     deleteDepartureFromTour,
     deleteScheduleFromTour,
@@ -67,6 +68,8 @@ router.post('/filterTourByPrice', filterTourByPrice);
 router.post('/filterTourByDeparture', filterTourByDeparture);
 
 router.post('/filterTourByTime', filterTourByTime);
+
+router.get('/countAmountTour', countAmountTour);
 
 // router.get('/takeThirtyNextDateDeparture', takeThirtyNextDateDeparture);
 
