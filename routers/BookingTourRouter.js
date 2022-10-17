@@ -11,6 +11,8 @@ import {
     getBookingTourByStatus,
     getBookingTourByTouristAccount,
     getYearsBookingTour,
+    revenueBookingByTour,
+    revenueBookingByTourist,
     revenueBookingTourByMonth,
     totalRevenueBookingTour,
     updateBookingTourFinish,
@@ -49,5 +51,9 @@ router.get('/totalRevenueBookingTour', totalRevenueBookingTour);
 router.post('/revenueBookingTourByMonth', revenueBookingTourByMonth);
 
 router.get('/getYearsBookingTour', getYearsBookingTour);
+
+router.get('/revenueBookingByTour', revenueBookingByTour);
+
+router.get('/revenueBookingByTourist', revenueBookingByTourist);
 
 export default router;

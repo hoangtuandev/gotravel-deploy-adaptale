@@ -10,6 +10,7 @@ import {
     activeProfile,
     searchingGuide,
     countAmountGuide,
+    sortAccountGuideByAverageStar,
 } from '../controllers/GuideAccountCtrl.js';
 
 const router = express.Router();
@@ -33,5 +34,7 @@ router.post('/updateProfileGuideOfAccount', updateProfileGuideOfAccount);
 router.post('/searchingGuide', searchingGuide);
 
 router.get('/countAmountGuide', countAmountGuide);
+
+router.post('/sortAccountGuideByAverageStar', sortAccountGuideByAverageStar);
 
 export default router;

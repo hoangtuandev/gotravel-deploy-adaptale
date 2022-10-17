@@ -146,7 +146,6 @@ export const filterBookingTourByBookingDate = async (req, res) => {
 
 export const updateBookingTourWorking = async (req, res) => {
     try {
-        const status = req.body.bt_trangthai;
         const currentDate = new Date();
         const bookings = await BookingTourModel.find({
             bt_trangthai: { $gte: 2 },
@@ -158,6 +157,8 @@ export const updateBookingTourWorking = async (req, res) => {
             );
             const end = new Date(bookings[i].bt_lichkhoihanh.lkh_ngayketthuc);
 
+            // console.log(start + ' --- ' + currentDate + ' --- ' + end);
+
             if (currentDate >= start && currentDate <= end) {
                 const update = await BookingTourModel.updateOne(
                     { _id: bookings[i]._id },
@@ -167,12 +168,11 @@ export const updateBookingTourWorking = async (req, res) => {
                         },
                     }
                 );
-                res.status(200).json(update);
+
                 return update;
             }
         }
-
-        // res.status(200).json();
+        res.status(200).json();
     } catch (error) {
         res.status(500).json({ error: error });
     }
@@ -326,6 +326,48 @@ export const revenueBookingTourByMonth = async (req, res) => {
         }
 
         res.status(200).json(revenuesMonth);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const revenueBookingByTour = async (req, res) => {
+    try {
+        const bookings = await BookingTourModel.aggregate([
+            {
+                $group: {
+                    _id: '$bt_tour',
+                    total_revenue: { $sum: '$bt_tongthanhtoan' },
+                },
+            },
+            {
+                $sort: { total_revenue: -1 },
+            },
+            { $limit: 5 },
+        ]);
+
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const revenueBookingByTourist = async (req, res) => {
+    try {
+        const bookings = await BookingTourModel.aggregate([
+            {
+                $group: {
+                    _id: '$bt_taikhoan',
+                    total_revenue: { $sum: '$bt_tongthanhtoan' },
+                },
+            },
+            {
+                $sort: { total_revenue: -1 },
+            },
+            { $limit: 5 },
+        ]);
+
+        res.status(200).json(bookings);
     } catch (error) {
         res.status(500).json({ error: error });
     }

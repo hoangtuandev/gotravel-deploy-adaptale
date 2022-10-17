@@ -1,5 +1,6 @@
 import { GuideAccountModel } from '../models/GuideAccountModel.js';
 import jwt from 'jsonwebtoken';
+import { QuanlityGuideModel } from '../models/QualityGuideModel.js';
 
 export const getAllGuideAccount = async (req, res) => {
     try {
@@ -180,6 +181,31 @@ export const countAmountGuide = async (req, res) => {
         const amount = await GuideAccountModel.count();
 
         res.status(200).json(amount);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const sortAccountGuideByAverageStar = async (req, res) => {
+    try {
+        const typeSort = req.body.typeSort;
+        const accounts = await GuideAccountModel.find({ tkhdv_trangthai: 1 });
+        const qualitys = await QuanlityGuideModel.find().sort({
+            clhdv_saotrungbinh: typeSort,
+        });
+        var result = [];
+        for (let x = 0; x < qualitys.length; x++) {
+            for (let y = 0; y < accounts.length; y++) {
+                if (
+                    qualitys[x].clhdv_huongdanvien.tkhdv_tendangnhap ===
+                    accounts[y].tkhdv_tendangnhap
+                ) {
+                    result.push(accounts[y]);
+                }
+            }
+        }
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });
     }
