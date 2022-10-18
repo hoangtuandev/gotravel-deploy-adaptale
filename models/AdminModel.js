@@ -9,8 +9,8 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    qtv_ngaysinh: {
-        type: Date,
+    qtv_namsinh: {
+        type: Number,
     },
     qtv_gioitinh: {
         type: String,
@@ -22,6 +22,9 @@ const schema = new mongoose.Schema({
         type: String,
     },
     qtv_diachi: {
+        type: String,
+    },
+    qtv_chucvu: {
         type: String,
     },
 });

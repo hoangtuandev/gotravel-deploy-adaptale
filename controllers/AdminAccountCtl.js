@@ -45,3 +45,37 @@ export const getInforAdmin = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const createAccountAdmin = async (req, res) => {
+    try {
+        const newAccount = req.body;
+        const result = new AdminAccountModel(newAccount);
+        await result.save();
+
+        res.status(200).json(newAccount);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getActivedAccountAdmin = async (req, res) => {
+    try {
+        const result = await AdminAccountModel.find({ tkqtv_trangthai: 1 });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getAccountAdminByUsername = async (req, res) => {
+    try {
+        const username = req.body.username;
+        const result = await AdminAccountModel.find({
+            tkqtv_tendangnhap: username,
+        });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

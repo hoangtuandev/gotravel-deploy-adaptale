@@ -9,6 +9,9 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    tkqtv_anhdaidien: {
+        type: String,
+    },
     tkqtv_trangthai: {
         type: Number,
     },

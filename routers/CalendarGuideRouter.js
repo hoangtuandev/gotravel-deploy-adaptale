@@ -12,6 +12,7 @@ import {
     get30NextDayCalendarGuide,
     getCalendarGuidebyDeaprtureDate,
     searchingCalendarGuideByTourName,
+    deleteRegistedGuide,
 } from '../controllers/CalendarGuideCtrl.js';
 
 const router = express.Router();
@@ -45,5 +46,7 @@ router.post(
     '/getCalendarGuidebyDeaprtureDate',
     getCalendarGuidebyDeaprtureDate
 );
+
+router.post('/deleteRegistedGuide', deleteRegistedGuide);
 
 export default router;

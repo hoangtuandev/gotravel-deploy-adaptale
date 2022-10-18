@@ -157,10 +157,8 @@ export const updateBookingTourWorking = async (req, res) => {
             );
             const end = new Date(bookings[i].bt_lichkhoihanh.lkh_ngayketthuc);
 
-            // console.log(start + ' --- ' + currentDate + ' --- ' + end);
-
             if (currentDate >= start && currentDate <= end) {
-                const update = await BookingTourModel.updateOne(
+                await BookingTourModel.updateOne(
                     { _id: bookings[i]._id },
                     {
                         $set: {
@@ -168,8 +166,6 @@ export const updateBookingTourWorking = async (req, res) => {
                         },
                     }
                 );
-
-                return update;
             }
         }
         res.status(200).json();
@@ -190,7 +186,7 @@ export const updateBookingTourFinish = async (req, res) => {
             const end = new Date(bookings[i].bt_lichkhoihanh.lkh_ngayketthuc);
 
             if (currentDate >= end) {
-                const update = await BookingTourModel.updateOne(
+                await BookingTourModel.updateOne(
                     { _id: bookings[i]._id },
                     {
                         $set: {
@@ -198,12 +194,10 @@ export const updateBookingTourFinish = async (req, res) => {
                         },
                     }
                 );
-                res.status(200).json(update);
-                return update;
             }
         }
 
-        // res.status(200).json();
+        res.status(200).json();
     } catch (error) {
         res.status(500).json({ error: error });
     }
@@ -288,6 +282,7 @@ export const revenueBookingTourByMonth = async (req, res) => {
         const currentYear = req.body.currentYear;
 
         const bookings = await BookingTourModel.aggregate([
+            // { $match: { bt_trangthai: 4 } },
             {
                 $group: {
                     _id: {
@@ -334,6 +329,7 @@ export const revenueBookingTourByMonth = async (req, res) => {
 export const revenueBookingByTour = async (req, res) => {
     try {
         const bookings = await BookingTourModel.aggregate([
+            // { $match: { bt_trangthai: 4 } },
             {
                 $group: {
                     _id: '$bt_tour',
@@ -355,6 +351,7 @@ export const revenueBookingByTour = async (req, res) => {
 export const revenueBookingByTourist = async (req, res) => {
     try {
         const bookings = await BookingTourModel.aggregate([
+            // { $match: { bt_trangthai: 4 } },
             {
                 $group: {
                     _id: '$bt_taikhoan',
