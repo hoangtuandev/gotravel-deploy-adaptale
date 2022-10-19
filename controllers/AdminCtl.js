@@ -33,3 +33,29 @@ export const getAdminById = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const updateAdmin = async (req, res) => {
+    try {
+        const profile = req.body;
+
+        await AdminModel.updateOne(
+            {
+                qtv_ma: profile.qtv_ma,
+            },
+            {
+                qtv_hoten: profile.qtv_hoten,
+                qtv_namsinh: profile.qtv_namsinh,
+                qtv_gioitinh: profile.qtv_gioitinh,
+                qtv_sodienthoai: profile.qtv_sodienthoai,
+                qtv_email: profile.qtv_email,
+                qtv_diachi: profile.qtv_diachi,
+            }
+        );
+
+        const result = await AdminModel.find({ qtv_ma: profile.qtv_ma });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
