@@ -59,3 +59,24 @@ export const updateAdmin = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const changePositionAdmin = async (req, res) => {
+    try {
+        const profile = req.body;
+
+        await AdminModel.updateOne(
+            {
+                qtv_ma: profile.qtv_ma,
+            },
+            {
+                qtv_chucvu: profile.qtv_chucvu,
+            }
+        );
+
+        const result = await AdminModel.find({ qtv_ma: profile.qtv_ma });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

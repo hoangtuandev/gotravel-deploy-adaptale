@@ -121,12 +121,17 @@ export const searchingCalendarGuideByTourName = async (req, res) => {
 
 export const getAvairiableCalendarGuide = async (req, res) => {
     try {
+        const current = new Date();
         const calendars = await CalendarGuideModel.find();
 
         const filterCalendarAvaiable = (calendar) => {
+            const departure = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngaykhoihanh
+            );
             if (
                 calendar.ldt_tour.t_soluonghuongdanvien >
-                calendar.ldt_huongdanvien.length
+                    calendar.ldt_huongdanvien.length &&
+                departure > current
             ) {
                 return calendar;
             }
@@ -140,10 +145,17 @@ export const getAvairiableCalendarGuide = async (req, res) => {
 
 export const getCalendarGuideByAccount = async (req, res) => {
     try {
+        const current = new Date();
         const calendars = await CalendarGuideModel.find();
         const filterCalendarByAccount = (calendar) => {
+            const departure = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngaykhoihanh
+            );
             for (let i = 0; i < calendar.ldt_huongdanvien.length; i++) {
-                if (calendar.ldt_huongdanvien[i]._id === req.body.idAccount) {
+                if (
+                    calendar.ldt_huongdanvien[i]._id === req.body.idAccount &&
+                    departure > current
+                ) {
                     return calendar;
                 }
             }
@@ -186,6 +198,7 @@ export const addCalendarGuide = async (req, res) => {
 
 export const registerCalendarGuideTour = async (req, res) => {
     try {
+        const current = new Date();
         const newGuide = req.body.guide;
         const idCalendar = req.body.idCalendar;
         const calendar = await CalendarGuideModel.find({ _id: idCalendar });
@@ -193,7 +206,7 @@ export const registerCalendarGuideTour = async (req, res) => {
         var guideCurrent = calendar[0].ldt_huongdanvien;
         guideCurrent.push(newGuide);
 
-        const result = await CalendarGuideModel.updateOne(
+        await CalendarGuideModel.updateOne(
             {
                 _id: idCalendar,
             },
@@ -203,8 +216,23 @@ export const registerCalendarGuideTour = async (req, res) => {
                 },
             }
         );
-        const newCalendars = await CalendarGuideModel.find();
-        res.status(200).json(newCalendars);
+
+        const calendars = await CalendarGuideModel.find();
+        const filterCalendarAvaiable = (calendar) => {
+            const departure = new Date(
+                calendar.ldt_lichkhoihanh.lkh_ngaykhoihanh
+            );
+            if (
+                calendar.ldt_tour.t_soluonghuongdanvien >
+                    calendar.ldt_huongdanvien.length &&
+                departure > current
+            ) {
+                return calendar;
+            }
+        };
+        const result = calendars.filter(filterCalendarAvaiable);
+        // const newCalendars = await CalendarGuideModel.find();
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });
     }

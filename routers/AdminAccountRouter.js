@@ -11,6 +11,7 @@ import {
     lockAdminAccount,
     searchingAdminAccount,
     updateAccountAdmin,
+    updatePositionAdmin,
 } from '../controllers/AdminAccountCtl.js';
 
 const router = express.Router();
@@ -38,5 +39,7 @@ router.post('/activeAdminAccount', activeAdminAccount);
 router.post('/filterAdminAccountByPower', filterAdminAccountByPower);
 
 router.post('/searchingAdminAccount', searchingAdminAccount);
+
+router.post('/updatePositionAdmin', updatePositionAdmin);
 
 export default router;

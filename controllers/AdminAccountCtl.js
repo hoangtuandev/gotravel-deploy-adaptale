@@ -214,3 +214,23 @@ export const searchingAdminAccount = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const updatePositionAdmin = async (req, res) => {
+    try {
+        const profile = req.body;
+        const result = await AdminAccountModel.updateOne(
+            {
+                tkqtv_tendangnhap: profile.tkqtv_tendangnhap,
+            },
+            {
+                $set: {
+                    tkqtv_nhanvien: profile.tkqtv_nhanvien,
+                },
+            }
+        );
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
