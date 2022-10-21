@@ -20,6 +20,20 @@ export const getActiveAdvertisement = async (req, res) => {
     }
 };
 
+export const getLimitActiveAdvertisement = async (req, res) => {
+    try {
+        const limitAmount = req.body.limitAmount;
+        const advertisements = await AdvertisementModel.find({
+            bvqb_trangthai: 1,
+        })
+            .sort({ bvqb_ngaydang: -1 })
+            .limit(limitAmount);
+        res.status(200).json(advertisements);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const getRemoveAdvertisement = async (req, res) => {
     try {
         const advertisements = await AdvertisementModel.find({

@@ -6,6 +6,7 @@ import {
     createTour,
     deleteDepartureFromTour,
     deleteScheduleFromTour,
+    filterTopTourRating,
     filterTourByDeparture,
     filterTourByParams,
     filterTourByPrice,
@@ -15,6 +16,7 @@ import {
     getPreferTour,
     getStopedTour,
     getTourById,
+    getTourByIdentify,
     getTourByParamsFilter,
     getTourByTypeTourism,
     searchingTour,
@@ -70,6 +72,10 @@ router.post('/filterTourByDeparture', filterTourByDeparture);
 router.post('/filterTourByTime', filterTourByTime);
 
 router.get('/countAmountTour', countAmountTour);
+
+router.get('/filterTopTourRating', filterTopTourRating);
+
+router.post('/getTourByIdentify', getTourByIdentify);
 
 // router.get('/takeThirtyNextDateDeparture', takeThirtyNextDateDeparture);
 

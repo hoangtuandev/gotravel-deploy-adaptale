@@ -1,5 +1,6 @@
 import { CalendarGuideModel } from '../models/CalendarGuideModel.js';
 import { DepartureModel } from '../models/DepartureModel.js';
+import { RatingTourModel } from '../models/RatingTourModel.js';
 import { TourModel } from '../models/TourModel.js';
 
 export const getAllTour = async (req, res) => {
@@ -392,6 +393,39 @@ export const countAmountTour = async (req, res) => {
         const amount = await TourModel.count();
 
         res.status(200).json(amount);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const filterTopTourRating = async (req, res) => {
+    try {
+        const ratings = await RatingTourModel.aggregate([
+            {
+                $group: {
+                    _id: '$dgt_tour',
+                    averageStar: { $avg: '$dgt_saodanhgia' },
+                    count: { $count: {} },
+                },
+            },
+            {
+                $sort: { averageStar: -1 },
+            },
+            { $limit: 9 },
+        ]);
+
+        res.status(200).json(ratings);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getTourByIdentify = async (req, res) => {
+    try {
+        const idTour = req.body.idTour;
+        const result = await TourModel.find({ _id: idTour });
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: error });
     }

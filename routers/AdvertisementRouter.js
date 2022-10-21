@@ -6,6 +6,7 @@ import {
     dislikeAdvertisement,
     getActiveAdvertisement,
     getAllAdvertisement,
+    getLimitActiveAdvertisement,
     getRemoveAdvertisement,
     likeAdvertisement,
     removeAdvertisement,
@@ -33,5 +34,7 @@ router.post('/deleteAdvertisement', deleteAdvertisement);
 router.post('/likeAdvertisement', likeAdvertisement);
 
 router.post('/dislikeAdvertisement', dislikeAdvertisement);
+
+router.post('/getLimitActiveAdvertisement', getLimitActiveAdvertisement);
 
 export default router;

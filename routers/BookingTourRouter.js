@@ -7,6 +7,7 @@ import {
     filterBookingTourByDeparture,
     filterBookingTourByParams,
     filterBookingTourByPrice,
+    filterBookingTourByStatus,
     getAllBookingTour,
     getBookingTourByStatus,
     getBookingTourByTouristAccount,
@@ -14,6 +15,7 @@ import {
     revenueBookingByTour,
     revenueBookingByTourist,
     revenueBookingTourByMonth,
+    searchingBookingByTour,
     totalRevenueBookingTour,
     updateBookingTourFinish,
     updateBookingTourWorking,
@@ -55,5 +57,9 @@ router.get('/getYearsBookingTour', getYearsBookingTour);
 router.get('/revenueBookingByTour', revenueBookingByTour);
 
 router.get('/revenueBookingByTourist', revenueBookingByTourist);
+
+router.post('/searchingBookingByTour', searchingBookingByTour);
+
+router.post('/filterBookingTourByStatus', filterBookingTourByStatus);
 
 export default router;
