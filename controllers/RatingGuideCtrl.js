@@ -79,6 +79,26 @@ export const updateRatingGuide = async (req, res) => {
     }
 };
 
+export const averageStarGuideStatistic = async (req, res) => {
+    try {
+        const ratings = await RatingGuideModel.aggregate([
+            {
+                $group: {
+                    _id: '$dghdv_huongdanvien',
+                    averageStar: { $avg: '$dghdv_saodanhgia' },
+                    count: { $count: {} },
+                },
+            },
+            {
+                $sort: { averageStar: -1, count: -1 },
+            },
+            { $limit: 5 },
+        ]);
+
+        res.status(200).json(ratings);
+    } catch (error) {}
+};
+
 // export const updateRatingTour = async (req, res) => {
 //     try {
 //         const rating = req.body;

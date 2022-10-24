@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+    averageStarGuideStatistic,
     createRatingGuide,
     getAllRatingGuide,
     getRatingGuideByBooking,
@@ -18,5 +19,7 @@ router.post('/getRatingGuideByBooking', getRatingGuideByBooking);
 router.post('/getRatingGuideByGuideAccount', getRatingGuideByGuideAccount);
 
 router.post('/updateRatingGuide', updateRatingGuide);
+
+router.get('/averageStarGuideStatistic', averageStarGuideStatistic);
 
 export default router;

@@ -61,7 +61,6 @@ export const getCalendarGuidebyDeaprtureDate = async (req, res) => {
 export const searchingCalendarGuideByTourName = async (req, res) => {
     try {
         const key = req.body.keySearching;
-        console.log(key);
         function removeVietnameseTones(str) {
             str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
             str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
@@ -353,4 +352,24 @@ export const deleteRegistedGuide = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error });
     }
+};
+
+export const calendarGuideTimesStatistic = async (req, res) => {
+    try {
+        const current = new Date();
+        const calendars = await CalendarGuideModel.aggregate([
+            {
+                $group: {
+                    _id: '$ldt_huongdanvien',
+                    count: { $count: {} },
+                },
+            },
+            {
+                $sort: { count: -1 },
+            },
+            { $limit: 5 },
+        ]);
+
+        res.status(200).json(calendars);
+    } catch (error) {}
 };

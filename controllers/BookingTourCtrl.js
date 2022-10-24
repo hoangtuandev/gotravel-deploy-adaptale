@@ -246,6 +246,9 @@ export const getYearsBookingTour = async (req, res) => {
     try {
         const years = await BookingTourModel.aggregate([
             { $group: { _id: { $year: '$bt_ngaydat' } } },
+            {
+                $sort: { _id: 1 },
+            },
         ]);
 
         const result = [];
@@ -282,7 +285,7 @@ export const revenueBookingTourByMonth = async (req, res) => {
         const currentYear = req.body.currentYear;
 
         const bookings = await BookingTourModel.aggregate([
-            // { $match: { bt_trangthai: 4 } },
+            { $match: { bt_trangthai: 4 } },
             {
                 $group: {
                     _id: {
@@ -326,10 +329,39 @@ export const revenueBookingTourByMonth = async (req, res) => {
     }
 };
 
+export const compareRevenueBookingTour = async (req, res) => {
+    try {
+        const revenues = await BookingTourModel.aggregate([
+            { $match: { bt_trangthai: 4 } },
+            {
+                $group: {
+                    _id: {
+                        year: { $year: '$bt_ngaydat' },
+                    },
+                    total_revenue_month: { $sum: '$bt_tongthanhtoan' },
+                },
+            },
+            {
+                $sort: { _id: 1 },
+            },
+        ]);
+
+        const result = [];
+
+        for (let i = 0; i < revenues.length; i++) {
+            result.push(revenues[i].total_revenue_month);
+        }
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const revenueBookingByTour = async (req, res) => {
     try {
         const bookings = await BookingTourModel.aggregate([
-            // { $match: { bt_trangthai: 4 } },
+            { $match: { bt_trangthai: 4 } },
             {
                 $group: {
                     _id: '$bt_tour',
@@ -351,7 +383,7 @@ export const revenueBookingByTour = async (req, res) => {
 export const revenueBookingByTourist = async (req, res) => {
     try {
         const bookings = await BookingTourModel.aggregate([
-            // { $match: { bt_trangthai: 4 } },
+            { $match: { bt_trangthai: 4 } },
             {
                 $group: {
                     _id: '$bt_taikhoan',
@@ -435,6 +467,40 @@ export const searchingBookingByTour = async (req, res) => {
         };
 
         const result = bookings.filter(filterBookings);
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getWorkingBookingTour = async (req, res) => {
+    try {
+        const idAccount = req.body.idAccount;
+        const bookings = await BookingTourModel.find({ bt_trangthai: 3 });
+
+        const result = bookings.filter((booking) => {
+            if (idAccount.toString() === booking.bt_taikhoan._id.toString()) {
+                return booking;
+            }
+        });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const getFutureBookingTour = async (req, res) => {
+    try {
+        const idAccount = req.body.idAccount;
+        const bookings = await BookingTourModel.find({ bt_trangthai: 2 });
+
+        const result = bookings.filter((booking) => {
+            if (idAccount.toString() === booking.bt_taikhoan._id.toString()) {
+                return booking;
+            }
+        });
 
         res.status(200).json(result);
     } catch (error) {
