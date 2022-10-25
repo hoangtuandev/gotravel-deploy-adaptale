@@ -507,3 +507,29 @@ export const getFutureBookingTour = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const getTouristByDeparture = async (req, res) => {
+    try {
+        const calendar = req.body.calendar;
+        var amountTourist = 0;
+        const bookings = await BookingTourModel.find();
+
+        const filterByCalendar = bookings.filter((booking) => {
+            return (
+                calendar._id.toString() ===
+                booking.bt_lichkhoihanh._id.toString()
+            );
+        });
+
+        for (let i = 0; i < filterByCalendar.length; i++) {
+            amountTourist +=
+                filterByCalendar[i].bt_soluonghanhkhach.adult +
+                filterByCalendar[i].bt_soluonghanhkhach.children +
+                filterByCalendar[i].bt_soluonghanhkhach.baby;
+        }
+
+        res.status(200).json({ filterByCalendar, amountTourist });
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

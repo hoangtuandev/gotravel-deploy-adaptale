@@ -13,6 +13,7 @@ import {
     getBookingTourByStatus,
     getBookingTourByTouristAccount,
     getFutureBookingTour,
+    getTouristByDeparture,
     getWorkingBookingTour,
     getYearsBookingTour,
     revenueBookingByTour,
@@ -70,5 +71,7 @@ router.get('/compareRevenueBookingTour', compareRevenueBookingTour);
 router.post('/getWorkingBookingTour', getWorkingBookingTour);
 
 router.post('/getFutureBookingTour', getFutureBookingTour);
+
+router.post('/getTouristByDeparture', getTouristByDeparture);
 
 export default router;
