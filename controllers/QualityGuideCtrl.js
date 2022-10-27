@@ -23,7 +23,6 @@ export const addQualityGuide = async (req, res) => {
 
 export const updateStartGuide = async (req, res) => {
     try {
-        console.log(req.body.username);
         const username = req.body.username;
         const ratings = await RatingGuideModel.find();
         const qualitys = await QuanlityGuideModel.find();

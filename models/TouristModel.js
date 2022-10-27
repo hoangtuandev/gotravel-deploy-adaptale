@@ -12,7 +12,7 @@ const schema = new mongoose.Schema({
         type: String,
     },
     kdl_gioitinh: {
-        type: Number,
+        type: String,
     },
     kdl_sotaikhoan: {
         type: String,
@@ -21,6 +21,9 @@ const schema = new mongoose.Schema({
         type: String,
     },
     kdl_email: {
+        type: String,
+    },
+    kdl_diachi: {
         type: String,
     },
 });

@@ -72,3 +72,36 @@ export const countAmountTouristAccount = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const getTouristAccountById = async (req, res) => {
+    try {
+        const idAccount = req.body.idAccount;
+        const result = await TouristAccountModel.find({ _id: idAccount });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+export const updateProfileTouristAccount = async (req, res) => {
+    try {
+        const idAccount = req.body.idAccount;
+        const profile = req.body.profile;
+
+        await TouristAccountModel.updateOne(
+            {
+                _id: idAccount,
+            },
+            {
+                $set: {
+                    tkkdl_khachdulich: profile,
+                },
+            }
+        );
+
+        const result = await TouristAccountModel.find({ _id: idAccount });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

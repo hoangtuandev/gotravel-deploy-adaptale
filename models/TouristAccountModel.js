@@ -9,6 +9,9 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    tkkdl_anhdaidien: {
+        type: String,
+    },
     tkkdl_trangthai: {
         type: Number,
     },
