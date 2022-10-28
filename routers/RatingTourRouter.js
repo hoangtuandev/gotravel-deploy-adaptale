@@ -2,6 +2,7 @@ import express from 'express';
 import {
     createRatingTour,
     getAllRatingTour,
+    getAllRatingTourByTour,
     getRatingTourByTourist,
     updateRatingTour,
 } from '../controllers/RatingTourCtrl.js';
@@ -15,5 +16,7 @@ router.post('/', createRatingTour);
 router.post('/getRatingTourByTourist', getRatingTourByTourist);
 
 router.post('/updateRatingTour', updateRatingTour);
+
+router.post('/getAllRatingTourByTour', getAllRatingTourByTour);
 
 export default router;

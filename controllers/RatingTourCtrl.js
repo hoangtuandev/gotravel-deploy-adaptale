@@ -58,3 +58,14 @@ export const updateRatingTour = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const getAllRatingTourByTour = async (req, res) => {
+    try {
+        const idTour = req.body.idTour;
+        const result = await RatingTourModel.find({ dgt_tour: idTour });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};

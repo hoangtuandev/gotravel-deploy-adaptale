@@ -49,14 +49,18 @@ router.post(
                             tkkdl_anhdaidien: newFileName,
                         }
                     );
+                    const result = await TouristAccountModel.find({
+                        _id: req.query.accountID,
+                    });
+                    res.status(200).json(result);
                 }
             );
+        } else {
+            const result = await TouristAccountModel.find({
+                _id: req.query.accountID,
+            });
+            res.status(200).json(result);
         }
-
-        const result = await TouristAccountModel.find({
-            _id: req.query.accountID,
-        });
-        res.status(200).json(result);
     }
 );
 
