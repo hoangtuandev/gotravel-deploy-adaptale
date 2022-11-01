@@ -129,7 +129,7 @@ export const getTourByParamsFilter = async (req, res) => {
 export const filterTourByParams = async (req, res) => {
     try {
         const params = req.body.params;
-        const type = req.body.typeTourism;
+        // const type = req.body.typeTourism;
         const departureFilter = new Date(req.body.params.departure);
 
         const filterByDeparture = (tour) => {
@@ -148,20 +148,20 @@ export const filterTourByParams = async (req, res) => {
             return tour.t_thoigian === params.time;
         };
 
-        const filterByTypeTourism = (tour) => {
-            return (tour.t_loaihinh._id = type._id);
-        };
+        // const filterByTypeTourism = (tour) => {
+        //     return (tour.t_loaihinh._id = type._id);
+        // };
 
         var tours = await TourModel.find({
             t_gia: { $gte: params.price[0], $lte: params.price[1] },
             t_trangthai: 1,
         }).sort({ t_gia: 1 });
 
-        if (type.lht_ma !== 'all') {
-            const newTours = [...tours];
-            const filterTours = newTours.filter(filterByTypeTourism);
-            tours = [...filterTours];
-        }
+        // if (type.lht_ma !== 'all') {
+        //     const newTours = [...tours];
+        //     const filterTours = newTours.filter(filterByTypeTourism);
+        //     tours = [...filterTours];
+        // }
 
         if (!params.allDeparture) {
             const newTours = [...tours];

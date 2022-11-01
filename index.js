@@ -26,6 +26,8 @@ import GuideRouter from './routers/GuideRouter.js';
 import GuideAccountRouter from './routers/GuideAccountRouter.js';
 import GuideCardRouter from './routers/GuideCardRouter.js';
 import QualityGuideRouter from './routers/QualityGuideRouter.js';
+import SharePostsRouter from './routers/SharePostsRouter.js';
+import PostsCommentRouter from './routers/PostsCommentRouter.js';
 
 const app = express();
 
@@ -64,6 +66,8 @@ app.use('/Guide', GuideRouter);
 app.use('/GuideAccount', GuideAccountRouter);
 app.use('/GuideCard', GuideCardRouter);
 app.use('/QualityGuide', QualityGuideRouter);
+app.use('/SharePosts', SharePostsRouter);
+app.use('/PostsComment', PostsCommentRouter);
 
 // app.post('/uploadFile', upload.single('avatar'), (req, res) => {
 //     let fileType = req.file.mimetype.split('/')[1];
