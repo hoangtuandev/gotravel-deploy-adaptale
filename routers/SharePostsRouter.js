@@ -7,6 +7,8 @@ import {
     getAllSharePosts,
     getRejectSharePosts,
     getWaitingSharePosts,
+    handleDisFavoriteSharePost,
+    handleFavoriteSharePost,
     rejectSharePost,
 } from '../controllers/SharePostsCtrl.js';
 import { SharePostsModel } from '../models/SharePosts.js';
@@ -25,6 +27,10 @@ router.get('/getWaitingSharePosts', getWaitingSharePosts);
 router.post('/acceptSharePost', acceptSharePost);
 
 router.post('/rejectSharePost', rejectSharePost);
+
+router.post('/handleFavoriteSharePost', handleFavoriteSharePost);
+
+router.post('/handleDisFavoriteSharePost', handleDisFavoriteSharePost);
 
 router.post('/createSharePosts', upload.single('image'), async (req, res) => {
     const datas = JSON.parse(req.query.datas);

@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const schema = new mongoose.Schema({
     blbv_ma: {
         type: String,
-        required: true,
     },
     blbv_noidung: {
         type: String,
