@@ -21,6 +21,7 @@ import {
     revenueBookingTourByMonth,
     searchingBookingByTour,
     totalRevenueBookingTour,
+    totalTouristSatistic,
     updateBookingTourFinish,
     updateBookingTourWorking,
     updateStatusBookingTour,
@@ -73,5 +74,7 @@ router.post('/getWorkingBookingTour', getWorkingBookingTour);
 router.post('/getFutureBookingTour', getFutureBookingTour);
 
 router.post('/getTouristByDeparture', getTouristByDeparture);
+
+router.get('/totalTouristSatistic', totalTouristSatistic);
 
 export default router;

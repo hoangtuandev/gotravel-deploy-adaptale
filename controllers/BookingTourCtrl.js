@@ -533,3 +533,22 @@ export const getTouristByDeparture = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+export const totalTouristSatistic = async (req, res) => {
+    try {
+        const bookings = await BookingTourModel.find();
+
+        var result = 0;
+
+        for (let i = 0; i < bookings.length; i++) {
+            result +=
+                bookings[i].bt_soluonghanhkhach.adult +
+                bookings[i].bt_soluonghanhkhach.children +
+                bookings[i].bt_soluonghanhkhach.baby;
+        }
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
