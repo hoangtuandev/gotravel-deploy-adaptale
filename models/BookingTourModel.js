@@ -26,8 +26,14 @@ const schema = new mongoose.Schema({
     bt_soluonghanhkhach: {
         type: Object,
     },
-    bt_giamgia: {
-        type: Object,
+    bt_nguoilon: {
+        type: Array,
+    },
+    bt_treem: {
+        type: Array,
+    },
+    bt_embe: {
+        type: Array,
     },
     bt_tongthanhtoan: {
         type: Number,
